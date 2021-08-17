@@ -42,6 +42,8 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        email.delegate = self
+        password.delegate = self
     }
     
     func textFieldIsValid() -> Bool {
@@ -49,12 +51,26 @@ class AuthViewController: UIViewController {
         let emailIsValid = validation.tFIsValid(email)
         let passwordIsValid = validation.tFIsValid(password)
         let isSimpleEmail = validation.isSimpleEmail(email.text!)
-        if isSimpleEmail {
+        if !isSimpleEmail {
+            self.email.layer.borderWidth = 1
+            self.email.layer.cornerRadius = 5
             email.layer.borderColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         }
         return emailIsValid &&
             passwordIsValid &&
             isSimpleEmail
+    }
+
+}
+
+
+extension AuthViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderWidth = 0
+        textField.layer.cornerRadius = 0
+        textField.layer.borderColor = .none
+
     }
 
 }

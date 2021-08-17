@@ -50,6 +50,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        surname.delegate = self
+        lastname.delegate = self
+        firstname.delegate = self
+        email.delegate = self
+        password.delegate = self
+        passwordConfirm.delegate = self
 
     }
     
@@ -82,4 +88,15 @@ class ViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+}
+
+extension ViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderWidth = 0
+        textField.layer.cornerRadius = 0
+        textField.layer.borderColor = .none
+
+    }
+
 }
